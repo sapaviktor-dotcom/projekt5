@@ -21,6 +21,10 @@ lint = [
     "black (>=26.5.1,<27.0.0)",
     "isort (>=8.0.1,<9.0.0)"
 ]
+dev = [
+    "pytest (>=9.0.3,<10.0.0)",
+    "pytest-cov (>=7.1.0,<8.0.0)"
+]
 [tool.mypy]
 disallow_untyped_defs = true
 no_implicit_optional = true
