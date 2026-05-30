@@ -7,6 +7,8 @@ def mask_account_card(number: str) -> str:
     Visa Platinum 7000792289606361  -> Visa Platinum 7000 79** **** 6361
     Счет 73654108430135874305  -> Счет **4305
     """
+    if not number or not isinstance(number, str):
+        raise ValueError("Ошибка: пустая строка или неверный тип данных")
 
     if "счет" in number.lower():
         account_number = get_mask_account(number[-20:])
@@ -24,7 +26,11 @@ def get_date(data: str) -> str:
     и возвращает строку с датой в формате "ДД.ММ.ГГГГ"("11.03.2024").
     :rtype: str
     """
+    if not data:
+        raise ValueError("Ошибка: дата отсутствует или передана пустая строка ")
 
     data_time = data[:10].split("-")
+    if not all(part.isdigit() for part in data_time):
+        raise ValueError("Ошибка: дата содержит недопустимые символы")
 
     return f"{data_time[2]}.{data_time[1]}.{data_time[0]}"
