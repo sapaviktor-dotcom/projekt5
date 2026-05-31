@@ -4,9 +4,8 @@ def get_mask_account(account_number: str) -> str:
     if not isinstance(account_number, str):
         raise ValueError("Ввод должен быть строкой")
 
-    if not  account_number.isdigit() or len(account_number) < 4:
+    if not account_number.isdigit() or len(account_number) < 4:
         raise ValueError(" Не корректный ввод")
-
 
     # Преобразуем в строку на случай, если пришло число
 
@@ -27,7 +26,7 @@ def get_mask_card_number(card_number: str) -> str:
     if not isinstance(card_number, str):
         raise ValueError("Ввод должен быть строкой")
 
-    if not card_number.isdigit() :
+    if not card_number.isdigit():
         raise ValueError(" Не корректный ввод")
     # Превращаем в строку, если пришло число
     card_str = str(card_number)
@@ -41,8 +40,3 @@ def get_mask_card_number(card_number: str) -> str:
     mask = f"{card_str[:4]} {card_str[4:6]}** **** {card_str[-4:]}"
 
     return mask
-
-
-
-
-
