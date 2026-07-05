@@ -1,46 +1,58 @@
-from src.decorators import log
 
 
-# Пример 1: Логирование в файл
-@log(filename="mylog.txt")
-def my_function(x: int, y: int) -> int:
-    """Простая функция сложения."""
-    return x + y
+import requests
+import os
+import sys
+from dotenv import load_dotenv
+
+# Добавляем src в путь
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+
+from src.utils import load_transactions
+from src.external_api import convert_transaction_amount
 
 
-# Пример 2: Логирование в консоль
-@log()
-def greet(name: str) -> str:
-    """Функция приветствия."""
-    return f"Hello, {name}!"
+def main():
+    """Основная функция демонстрации."""
+    # Загружаем переменные окружения
+    load_dotenv()
+
+    # Проверяем наличие API ключа
+    if not os.getenv('API_KEY'):
+        print("Внимание: API ключ не найден в .env файле")
+        print("Конвертация валют будет недоступна")
+
+    # Загружаем транзакции
+    file_path = 'data/operations.json'
+    transactions = load_transactions(file_path)
+
+    if not transactions:
+        print(f"Не удалось загрузить транзакции из {file_path}")
+        return
+
+    print(f"Загружено {len(transactions)} транзакций")
+    print("\n" + "=" * 60)
+
+    # Конвертируем и выводим каждую транзакцию
+    for i, transaction in enumerate(transactions, 1):
+        amount_in_rub = convert_transaction_amount(transaction)
+        original_amount = transaction.get("amount",0 )
+        currency = transaction.get('currency', 'RUB')
+
+        print(f"Транзакция #{i}:")
 
 
-# Пример 3: Функция с ошибкой
-@log(filename="mylog.txt")
-def divide(a: float, b: float) -> float:
-    """Функция деления."""
-    return a / b
+        print(f"  Описание: {transaction.get('description', 'Нет описания')}")
+        print(f"  Сумма: {original_amount} {currency}")
+        print(f"  В рублях: {amount_in_rub:.2f} RUB")
+        print("-" * 40)
+
+    # Подсчет общей суммы в рублях
+    total_rub = sum(
+        convert_transaction_amount(t) for t in transactions
+    )
+    print(f"\nОбщая сумма всех транзакций: {total_rub:.2f} RUB")
 
 
 if __name__ == "__main__":
-    print("=== Демонстрация работы декоратора log ===\n")
-
-    # Успешное выполнение с записью в файл
-    print("1. Вызов my_function(1, 2)")
-    result = my_function(1, 2)
-    print(f"   Результат: {result}\n")
-
-    # Успешное выполнение с выводом в консоль
-    print("2. Вызов greet('Alice')")
-    result = greet("Alice")
-    print(f"   Результат: {result}\n")
-
-    # Выполнение с ошибкой
-    print("3. Вызов divide(10, 0)")
-    try:
-        result = divide(10, 0)
-        print(f"   Результат: {result}")
-    except ZeroDivisionError as e:
-        print(f"   Перехвачена ошибка: {e}")
-
-    print("\n=== Проверьте содержимое mylog.txt ===")
+    main()

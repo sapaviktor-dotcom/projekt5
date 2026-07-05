@@ -1,0 +1,36 @@
+[2026-06-27 11:35:06] my_function started
+[2026-06-27 11:35:06] my_function ok
+[2026-06-27 11:35:06] divide started
+[2026-06-27 11:35:06] divide error: ZeroDivisionError. Inputs: (10, 0)
+[2026-06-27 11:57:43] my_function started
+[2026-06-27 11:57:43] my_function ok
+[2026-06-27 11:57:43] divide started
+[2026-06-27 11:57:43] divide error: ZeroDivisionError. Inputs: (10, 0)
+[2026-06-27 14:27:38] my_function started
+[2026-06-27 14:27:38] my_function ok
+[2026-06-27 14:27:38] divide started
+[2026-06-27 14:27:38] divide error: ZeroDivisionError. Inputs: (10, 0)
+[2026-06-27 14:30:02] my_function started
+[2026-06-27 14:30:02] my_function ok
+[2026-06-27 14:30:02] divide started
+[2026-06-27 14:30:02] divide error: ZeroDivisionError. Inputs: (10, 0)
+[2026-06-27 14:44:38] my_function started
+[2026-06-27 14:44:38] my_function ok
+[2026-06-27 14:44:38] divide started
+[2026-06-27 14:44:38] divide error: ZeroDivisionError. Inputs: (10, 0)
+[2026-06-27 15:16:21] my_function started
+[2026-06-27 15:16:21] my_function ok
+[2026-06-27 15:16:21] divide started
+[2026-06-27 15:16:21] divide error: ZeroDivisionError. Inputs: (10, 0)
+[2026-06-27 15:28:11] my_function started
+[2026-06-27 15:28:11] my_function ok
+[2026-06-27 15:28:11] divide started
+[2026-06-27 15:28:11] divide error: ZeroDivisionError. Inputs: (10, 0)
+[2026-07-03 22:51:05] my_function started
+[2026-07-03 22:51:05] my_function ok
+[2026-07-03 22:51:05] divide started
+[2026-07-03 22:51:05] divide error: ZeroDivisionError. Inputs: (10, 0)
+[2026-07-03 22:51:29] my_function started
+[2026-07-03 22:51:29] my_function ok
+[2026-07-03 22:51:29] divide started
+[2026-07-03 22:51:29] divide error: ZeroDivisionError. Inputs: (10, 0)

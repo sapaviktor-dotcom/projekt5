@@ -1,8 +1,7 @@
-import sys
-
 import functools
+import sys
 from datetime import datetime
-from typing import Optional, Callable, Any
+from typing import Any, Callable, Optional
 
 
 def log(filename: Optional[str] = None) -> Callable:
