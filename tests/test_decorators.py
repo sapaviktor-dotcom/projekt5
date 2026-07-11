@@ -1,16 +1,16 @@
-
-import unittest
-
-import os
 import functools
-from datetime import datetime
-from typing import Optional, Callable, Any
-from unittest.mock import patch, mock_open
-import pytest
-import tempfile
+import os
 import sys
+import tempfile
+import unittest
+from datetime import datetime
 from io import StringIO
-from src.decorators import  _write_log, _format_args, log
+from typing import Any, Callable, Optional
+from unittest.mock import mock_open, patch
+
+import pytest
+
+from src.decorators import _format_args, _write_log, log
 
 
 class TestLogDecorator(unittest.TestCase):
@@ -40,7 +40,7 @@ class TestLogDecorator(unittest.TestCase):
         self.assertEqual(result, 5)
 
         # Проверяем содержимое файла
-        with open(self.test_filename, 'r', encoding='utf-8') as f:
+        with open(self.test_filename, "r", encoding="utf-8") as f:
             content = f.read()
 
         # Проверяем, что лог содержит имя функции и "ok"
@@ -78,7 +78,7 @@ class TestLogDecorator(unittest.TestCase):
             divide(10, 0)
 
         # Проверяем содержимое файла
-        with open(self.test_filename, 'r', encoding='utf-8') as f:
+        with open(self.test_filename, "r", encoding="utf-8") as f:
             content = f.read()
 
         # Проверяем, что ошибка залогирована
@@ -91,13 +91,13 @@ class TestLogDecorator(unittest.TestCase):
 
         @log(filename=self.test_filename)
         def square(x):
-            return x ** 2
+            return x**2
 
         square(2)
         square(3)
         square(4)
 
-        with open(self.test_filename, 'r', encoding='utf-8') as f:
+        with open(self.test_filename, "r", encoding="utf-8") as f:
             content = f.read()
 
         # Проверяем, что каждый вызов залогирован
@@ -112,7 +112,7 @@ class TestLogDecorator(unittest.TestCase):
 
         user_info("Alice", age=30, city="New York")
 
-        with open(self.test_filename, 'r', encoding='utf-8') as f:
+        with open(self.test_filename, "r", encoding="utf-8") as f:
             content = f.read()
 
         self.assertIn("user_info ok", content)
@@ -120,7 +120,7 @@ class TestLogDecorator(unittest.TestCase):
 
 def test_write_log_to_file():
     """Тест: _write_log запись в файл."""
-    with tempfile.NamedTemporaryFile(delete=False, suffix='.txt') as tmp:
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".txt") as tmp:
         filename = tmp.name
 
     try:
@@ -128,22 +128,19 @@ def test_write_log_to_file():
         _write_log("Test message\n", filename)
 
         # Проверка содержимого
-        with open(filename, 'r', encoding='utf-8') as f:
+        with open(filename, "r", encoding="utf-8") as f:
             content = f.read()
         assert content == "Test message\n"
 
         # Дополнительная запись
         _write_log("Second message\n", filename)
-        with open(filename, 'r', encoding='utf-8') as f:
+        with open(filename, "r", encoding="utf-8") as f:
             content = f.read()
         assert content == "Test message\nSecond message\n"
 
     finally:
         if os.path.exists(filename):
             os.remove(filename)
-
-
-
 
 
 def test_log_handles_exception_with_custom_message(capsys):
@@ -178,8 +175,6 @@ def test_log_handles_attribute_error(capsys):
     assert "attr_error_func error: AttributeError" in captured.out
 
 
-
-
 def test_log_handles_type_error(capsys):
     """Тест: логирование TypeError."""
 
@@ -208,15 +203,12 @@ def _format_args(args: tuple, kwargs: dict) -> str:
 def _write_log(message: str, filename: Optional[str] = None) -> None:
     """Записывает сообщение в файл или в stderr."""
     if filename:
-        with open(filename, 'a', encoding='utf-8') as f:
+        with open(filename, "a", encoding="utf-8") as f:
             f.write(message)
     else:
         import sys
+
         sys.stderr.write(message)
-
-
-
-
 
 
 if __name__ == "__main__":
