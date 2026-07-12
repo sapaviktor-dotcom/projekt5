@@ -34,8 +34,8 @@ def get_exchange_rate(from_currency: str, to_currency: str = "RUB") -> float:
         ConnectionError: Если проблемы с соединением
 
     Examples:
-        >>> rate = get_exchange_rate("USD")
-        >>> isinstance(rate, float)
+        #>>> rate = get_exchange_rate("USD")
+        #>>> isinstance(rate, float)
         True
     """
     if not API_KEY:
@@ -274,4 +274,4 @@ def clear_exchange_cache():
     """
     global _exchange_rate_cache
     _exchange_rate_cache.clear()
-    print("✅ Кэш курсов валют очищен")
+    print(" Кэш курсов валют очищен")

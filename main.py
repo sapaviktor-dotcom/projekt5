@@ -7,6 +7,7 @@ if __name__ == "__main__":
     card_number = "7000792289606361"  # пример номера карты
     account_number = "73654108430135874305"  # пример номера счета
 
+
     masked_card = get_mask_card_number(card_number)
     masked_account = get_mask_account(account_number)
 
