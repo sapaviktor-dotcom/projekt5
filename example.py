@@ -1,13 +1,7 @@
-
-
 import requests
 import os
 import sys
 from dotenv import load_dotenv
-
-# Добавляем src в путь
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
-
 from src.utils import load_transactions
 from src.external_api import convert_transaction_amount
 
