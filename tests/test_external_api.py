@@ -5,9 +5,17 @@ from unittest.mock import Mock, patch
 import pytest
 import requests
 
-from src.external_api import (API_KEY, BASE_URL, clear_exchange_cache, convert_transaction_amount,
-                              get_amount_from_transaction, get_currency_from_transaction, get_exchange_rate,
-                              get_exchange_rate_with_cache, get_exchange_rate_with_retry)
+from src.external_api import (
+    API_KEY,
+    BASE_URL,
+    clear_exchange_cache,
+    convert_transaction_amount,
+    get_amount_from_transaction,
+    get_currency_from_transaction,
+    get_exchange_rate,
+    get_exchange_rate_with_cache,
+    get_exchange_rate_with_retry,
+)
 
 
 class TestTransactionHelpers(unittest.TestCase):
