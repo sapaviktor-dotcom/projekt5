@@ -12,22 +12,30 @@ def filter_by_state(transactions: List[Dict[str, Any]], state: str = "EXECUTED")
     return [data for data in transactions if data.get("state") == state]
 
 
-def sort_by_date(list_dictionary: list[Dict[str, Any]], reverse_order: bool = True) -> List[Dict[str, Any]]:
+def sort_by_date(transactions: List[Dict[str, Any]], ascending: bool = False) -> List[Dict[str, Any]]:
     """
-      Принимает список словарей и необязательный параметр, задающий порядок сортировки (по умолчанию — убывание),
-    и возвращает новый список, отсортированный по дате (date).
+    Сортировка списка транзакций по дате.
     """
-    # Преобразуем строки дат в объекты datetime для сортировки
-    for item in list_dictionary:
-        item["date"] = datetime.strptime(item["date"], "%Y-%m-%dT%H:%M:%S.%f")
 
-    # Сортируем список словарей по ключу 'date' и "id"(в случае одинаковых дат)
-    sorted_list: List[Dict[str, Any]] = sorted(
-        list_dictionary, key=lambda x: (x["date"], x["id"]), reverse=reverse_order
-    )
+    def get_date(transaction):
+        date_str = transaction.get("date", "")
+        if not date_str:
+            return datetime.min
 
-    # Преобразуем обратно в строковый формат
-    for item in sorted_list:
-        item["date"] = item["date"].strftime("%Y-%m-%dT%H:%M:%S.%f")
+        # Если дата в формате ДД.ММ.ГГГГ
+        if "." in date_str and len(date_str) == 10:
+            try:
+                return datetime.strptime(date_str, "%d.%m.%Y")
+            except:
+                pass
 
-    return sorted_list
+        # Пробуем ISO форматы
+        for fmt in ["%Y-%m-%dT%H:%M:%S.%f", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%d"]:
+            try:
+                return datetime.strptime(date_str.split("Z")[0], fmt)
+            except:
+                continue
+
+        return datetime.min
+
+    return sorted(transactions, key=lambda x: get_date(x), reverse=not ascending)
